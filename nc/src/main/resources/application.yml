@@ -1,0 +1,20 @@
+server:
+  port: 1234
+
+
+spring:
+  application:
+    name: nc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/nc?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123
+  cloud:
+    nacos:
+      discovery:
+        namespace: mall
+es:
+  host: 172.22.152.31
+  port: 9200
+

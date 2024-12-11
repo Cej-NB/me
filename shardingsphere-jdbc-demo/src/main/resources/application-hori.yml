@@ -1,0 +1,52 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: mysql1,mysql2
+      mysql1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://172.28.87.233:3301/demo?allowPublicKeyRetrieval=true&useSSL=false
+        username: root
+        password: 123
+      mysql2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://172.28.87.233:3302/demo?allowPublicKeyRetrieval=true&useSSL=false
+        username: root
+        password: 123
+    rules:
+      sharding:
+        tables:
+          tb_user:          #表名
+            actual-data-nodes: mysql$->{1..2}.tb_user$->{1..2}
+            database-strategy:  #分库策略
+              standard:
+                sharding-column: id    #用来分片的列
+                sharding-algorithm-name: t1               #分片算法
+            table-strategy:    #分表策略
+              standard:
+                sharding-column: id    #用来分片的列
+                sharding-algorithm-name: t1               #分片算法
+            key-generate-strategy:     # 分布式序列生成策略
+              column: id
+              key-generator-name: key-t1
+          tb_shop:
+            actual-data-nodes: mysql1.tb_shop,mysql2.tb_shop
+            #actual-data-nodes: mysql$->{1..2}.tb_shop    #可以使用inline表达式
+        sharding-algorithms:
+          t1:         #自定义算法名称
+            type: INLINE   #行表达式算法
+            props:
+              algorithm-expression: mysql$->{id % 2}   #id/2取模，均匀分布在mysql1和mysql2中
+          t2:
+            type: MOD   #取模算法
+            props:
+              sharding-count: 2
+          t3:
+            type: HASH_MOD  #哈希取模算法
+            props:
+              sharding-count: 2
+        key-generators:
+          key-t1:
+            type: SNOWFLAKE
+            #props:

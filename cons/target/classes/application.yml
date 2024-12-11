@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: consDemo
+  profiles:
+    active: dev
+
+
+mybatis-plus:
+  type-aliases-package: com.cej.entity
+  global-config:
+    db-config:
+      id-type: auto
+      update-strategy: not_null #更新策略，只更新非空字段
+  configuration:
+    map-underscore-to-camel-case: true #是否开启下划线和驼峰的映射
+    cache-enabled: false # 是否开启二级缓存

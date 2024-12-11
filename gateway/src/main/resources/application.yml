@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: gateway
+
+
+
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: mall
+
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: nc_route
+          uri: lb://nc
+          predicates:
+            - Path=/api/nc/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: admin_route
+          uri: lb://renren
+          predicates:
+            - Path=/api/**  #所有发往网关的请求符合该标准，都会转到renren这个服务
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment} #路径重写
+
+
+logging:
+  level:
+    org: info

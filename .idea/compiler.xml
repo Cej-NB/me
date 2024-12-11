@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/mybatis/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="redisdemo" />
+        <module name="mp-demo" />
+        <module name="shardingsphere-jdbc-demo" />
+        <module name="test" />
+        <module name="nc" />
+        <module name="rabbit" />
+        <module name="mybatis" />
+        <module name="redis-demo" />
+        <module name="gateway" />
+        <module name="cons" />
+        <module name="base" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mybatis-d" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base" options="-parameters" />
+      <module name="cons" options="-parameters" />
+      <module name="mp-demo" options="-parameters" />
+      <module name="nc" options="-parameters" />
+      <module name="rabbit" options="-parameters" />
+      <module name="redis-demo" options="-parameters" />
+      <module name="shardingsphere-jdbc-demo" options="-parameters" />
+    </option>
+  </component>
+</project>

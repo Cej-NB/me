@@ -1,0 +1,28 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8  #最大连接
+        max-idle: 8    #最大空闲数
+        min-idle: 8    #最小空闲数
+        max-wait: 100  #连接等待时间
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/study?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123
+#  cloud:
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8080
+#      web-context-unify: false #默认会整合资源到context，导致链路限流失效。需关闭
+
+  rabbitmq:
+    host: 172.23.88.252
+    port: 5672
+    virtual-host: me
+    username: cej
+    password: 123

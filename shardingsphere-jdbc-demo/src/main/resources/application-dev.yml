@@ -1,0 +1,56 @@
+spring:
+
+  shardingsphere:
+    mode:
+      type: Memory
+
+    datasource:
+      names: master,slave1
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://172.28.87.233:3306/demo?allowPublicKeyRetrieval=true&useSSL=false
+        username: root
+        password: root
+      slave1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://172.28.87.233:3307/demo?allowPublicKeyRetrieval=true&useSSL=false
+        username: root
+        password: 123
+#      slave2:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        jdbc-url: jdbc:mysql://192.168.248.229:3308/demo
+#        username: root
+#        password: 123
+
+    rules:
+      readwrite-splitting:
+        data-sources:
+          myds:
+            #读写分离模式
+            type: Static
+            #读写数据源
+            props:
+              write-data-source-name: master
+              read-data-source-names: slave1
+            # 负载均衡算法名称
+            load-balancer-name: alg_round
+
+        #算法
+        load-balancers:
+          #轮询算法
+          alg_round:
+            type: ROUND_ROBIN
+          #随机算法
+          alg_random:
+            type: RANDOM
+          #权重算法
+          alg_weight:
+            type: WEIGHT
+            props:
+              slave1: 1
+              slave2: 2
+    props:
+      sql-show: true

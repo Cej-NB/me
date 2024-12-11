@@ -1,0 +1,16 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8  #最大连接
+        max-idle: 8    #最大空闲数
+        min-idle: 8    #最小空闲数
+        max-wait: 100  #连接等待时间
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.28.87.233:3306/demo?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123
